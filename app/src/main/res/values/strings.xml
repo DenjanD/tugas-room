@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">LatihanRoom</string>
+
+    <string name="hint_barang">Nama Barang </string>
+    <string name="hint_jumlah">Jumlah Beli </string>
+    <string name="hint_harga">Harga </string>
+    <string name="hint_bayar">Uang Bayar </string>
+    <string name="hint_produk">Nama Produk </string>
+    <string name="hint_stock">Stock </string>
+    <string name="simpan">Simpan</string>
+    <string name="title_produk">Tambah Produk</string>
+    <string name="ubah_produk">Ubah Produk</string>
+    <string name="hapus">Hapus</string>
+    <string name="produk_yang_tersedia">Produk yang Tersedia</string>
+    <string name="tambah_data">+ Tambah Data</string>
+</resources>
