@@ -1,72 +1,47 @@
 package com.denjand.tugasroom;
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 
-import com.denjand.tugasroom.adapter.ProductsAdapter;
-import com.denjand.tugasroom.crud.product.AddProductActivity;
-import com.denjand.tugasroom.database.DatabaseClient;
-import com.denjand.tugasroom.database.model.Product;
 
-import java.util.List;
+import androidx.appcompat.app.AppCompatActivity;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+    private Button btn_pesan;
+    private Button btn_history;
+    private Button btn_perbarui;
 
-    private Button buttonAddTask;
-    private RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        recyclerView = findViewById(R.id.recyclerview_tasks);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        buttonAddTask = findViewById(R.id.button_add);
-        buttonAddTask.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, AddProductActivity.class);
-                startActivity(intent);
-            }
-        });
-
-
-        getProducts();
+        setContentView(R.layout.menu);
+        btn_pesan = (Button) findViewById(R.id.btn_pesan);
+        btn_pesan.setOnClickListener(this);
+        btn_history = (Button) findViewById(R.id.btn_history);
+        btn_history.setOnClickListener(this);
+        btn_perbarui = (Button) findViewById(R.id.btn_perbarui);
+        btn_perbarui.setOnClickListener(this);
 
     }
+    @Override
+    public void onClick(View v){
+        switch (v.getId()){
+            case R.id.btn_pesan:
+                Intent i1 = new Intent(this, TransaksiActivity.class);
+                startActivity(i1);
+                break;
+//            case R.id.btn_history:
+//                Intent i2 = new Intent(this, RiwayatTransaksi.class);
+//                startActivity(i2);
+//                break;
+            case R.id.btn_perbarui:
+                Intent i3 = new Intent(this, ProductActivity.class);
+                startActivity(i3);
+                break;
 
-    private void getProducts() {
-        class GetProducts extends AsyncTask<Void, Void, List<Product>> {
-
-            @Override
-            protected List<Product> doInBackground(Void... voids) {
-                List<Product> productList = DatabaseClient
-                        .getInstance(getApplicationContext())
-                        .getAppDatabase()
-                        .productDao()
-                        .getAll();
-                return productList;
-            }
-
-            @Override
-            protected void onPostExecute(List<Product> products) {
-                super.onPostExecute(products);
-                ProductsAdapter adapter = new ProductsAdapter(MainActivity.this, products);
-                recyclerView.setAdapter(adapter);
-            }
         }
-
-        GetProducts gp = new GetProducts();
-        gp.execute();
     }
-
 }

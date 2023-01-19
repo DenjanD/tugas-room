@@ -13,4 +13,14 @@
     <string name="hapus">Hapus</string>
     <string name="produk_yang_tersedia">Produk yang Tersedia</string>
     <string name="tambah_data">+ Tambah Data</string>
+    <string name="history_pesanan"> Riwayat Pesanan </string>
+    <string name="perbarui"> Product </string>
+    <string name="pemesanan"> Pemesanan </string>
+    <string name="title_menu"> SELAMAT DATANG DI APLIKASI KASIR </string>
+    <string name="diskon">Diskon</string>
+    <string name="kembalian">Kembalian</string>
+    <string name="total_belanja">Total Belanja</string>
+    <string name="proses">Proses</string>
+    <string name="title_pemesanan">Transaksi</string>
+    <string name="todo" />
 </resources>
