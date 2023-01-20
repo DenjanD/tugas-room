@@ -1,4 +1,4 @@
-package com.denjand.tugasroom.crud.product;
+package com.denjand.tugasroom.crud.kasir;
 
 import android.os.Bundle;
 
@@ -14,44 +14,45 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.denjand.tugasroom.MainActivity;
 import com.denjand.tugasroom.R;
+import com.denjand.tugasroom.crud.kasir.UpdateKasirActivity;
 import com.denjand.tugasroom.database.DatabaseClient;
+import com.denjand.tugasroom.database.model.Kasir;
 import com.denjand.tugasroom.database.model.Product;
 
-public class UpdateProductActivity extends AppCompatActivity {
-
-    private EditText editTextName, editTextStock, editTextPrice;
+public class UpdateKasirActivity extends AppCompatActivity {
+    private EditText editTextName, editTextCity, editTextGender;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_update_product);
+        setContentView(R.layout.activity_update_kasir);
 
-        editTextName = findViewById(R.id.tie_nama_produk_tp);
-        editTextStock = findViewById(R.id.tie_stock_tp);
-        editTextPrice = findViewById(R.id.tie_harga_tp);
+        editTextName = findViewById(R.id.tie_nama_kasir_tp);
+        editTextCity = findViewById(R.id.tie_city_tp);
+        editTextGender = findViewById(R.id.tie_gender_tp);
 
-        final Product product = (Product) getIntent().getSerializableExtra("product");
+        final Kasir kasir = (Kasir) getIntent().getSerializableExtra("kasir");
 
-        loadProduct(product);
+        loadKasir(kasir);
 
-        findViewById(R.id.btn_simpan_produk).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.btn_simpan_kasir).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getApplicationContext(), "Clicked", Toast.LENGTH_LONG).show();
-                updateTask(product);
+                updateTask(kasir);
             }
         });
 
-        findViewById(R.id.btn_hapus_produk).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.btn_hapus_kasir).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(UpdateProductActivity.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(UpdateKasirActivity.this);
                 builder.setTitle("Are you sure?");
                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        deleteTask(product);
+                        deleteTask(kasir);
                     }
                 });
                 builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -67,16 +68,16 @@ public class UpdateProductActivity extends AppCompatActivity {
         });
     }
 
-    private void loadProduct(Product product) {
-        editTextName.setText(product.getName());
-        editTextStock.setText(String.valueOf(product.getStock()));
-        editTextPrice.setText(String.valueOf(product.getPrice()));
+    private void loadKasir(Kasir kasir) {
+        editTextName.setText(kasir.getName());
+        editTextCity.setText(String.valueOf(kasir.getCity()));
+        editTextGender.setText(String.valueOf(kasir.getGender()));
     }
 
-    private void updateTask(final Product product) {
+    private void updateTask(final Kasir kasir) {
         final String sName = editTextName.getText().toString().trim();
-        final String sStock = editTextStock.getText().toString().trim();
-        final String sPrice = editTextPrice.getText().toString().trim();
+        final String sCity = editTextCity.getText().toString().trim();
+        final String sGender = editTextGender.getText().toString().trim();
 
         if (sName.isEmpty()) {
             editTextName.setError("Name required");
@@ -84,28 +85,28 @@ public class UpdateProductActivity extends AppCompatActivity {
             return;
         }
 
-        if (sStock.isEmpty()) {
-            editTextStock.setError("Stock required");
-            editTextStock.requestFocus();
+        if (sCity.isEmpty()) {
+            editTextCity.setError("City required");
+            editTextCity.requestFocus();
             return;
         }
 
-        if (sPrice.isEmpty()) {
-            editTextPrice.setError("Price required");
-            editTextPrice.requestFocus();
+        if (sGender.isEmpty()) {
+            editTextGender.setError("Gender required");
+            editTextGender.requestFocus();
             return;
         }
 
-        class UpdateProduct extends AsyncTask<Void, Void, Void> {
+        class UpdateKasir extends AsyncTask<Void, Void, Void> {
 
             @Override
             protected Void doInBackground(Void... voids) {
-                product.setName(sName);
-                product.setStock(Integer.parseInt(sStock));
-                product.setPrice(Integer.parseInt(sPrice));
+                kasir.setName(sName);
+                kasir.setCity(sCity);
+                kasir.setGender(sGender);
                 DatabaseClient.getInstance(getApplicationContext()).getAppDatabase()
-                        .productDao()
-                        .update(product);
+                        .kasirDao()
+                        .update(kasir);
                 return null;
             }
 
@@ -114,23 +115,22 @@ public class UpdateProductActivity extends AppCompatActivity {
                 super.onPostExecute(aVoid);
                 Toast.makeText(getApplicationContext(), "Updated", Toast.LENGTH_LONG).show();
                 finish();
-                startActivity(new Intent(UpdateProductActivity.this, MainActivity.class));
+                startActivity(new Intent(UpdateKasirActivity.this, MainActivity.class));
             }
         }
 
-        UpdateProduct up = new UpdateProduct();
+        UpdateKasir up = new UpdateKasir();
         up.execute();
     }
 
-
-    private void deleteTask(final Product product) {
-        class DeleteProduct extends AsyncTask<Void, Void, Void> {
+    private void deleteTask(final Kasir kasir) {
+        class DeleteKasir extends AsyncTask<Void, Void, Void> {
 
             @Override
             protected Void doInBackground(Void... voids) {
                 DatabaseClient.getInstance(getApplicationContext()).getAppDatabase()
-                        .productDao()
-                        .delete(product);
+                        .kasirDao()
+                        .delete(kasir);
                 return null;
             }
 
@@ -139,13 +139,12 @@ public class UpdateProductActivity extends AppCompatActivity {
                 super.onPostExecute(aVoid);
                 Toast.makeText(getApplicationContext(), "Deleted", Toast.LENGTH_LONG).show();
                 finish();
-                startActivity(new Intent(UpdateProductActivity.this, MainActivity.class));
+                startActivity(new Intent(UpdateKasirActivity.this, MainActivity.class));
             }
         }
 
-        DeleteProduct dt = new DeleteProduct();
+        DeleteKasir dt = new DeleteKasir();
         dt.execute();
 
     }
-
 }
