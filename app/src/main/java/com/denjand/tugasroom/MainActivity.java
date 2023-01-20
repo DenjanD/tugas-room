@@ -33,10 +33,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Intent i1 = new Intent(this, TransaksiActivity.class);
                 startActivity(i1);
                 break;
-//            case R.id.btn_history:
-//                Intent i2 = new Intent(this, RiwayatTransaksi.class);
-//                startActivity(i2);
-//                break;
+            case R.id.btn_history:
+                Intent i2 = new Intent(this, KasirActivity.class);
+                startActivity(i2);
+                break;
             case R.id.btn_perbarui:
                 Intent i3 = new Intent(this, ProductActivity.class);
                 startActivity(i3);

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ProductActivity">
+    tools:context=".KasirActivity">
 
     <ImageView
         android:id="@+id/imageView3"
@@ -23,14 +23,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="@string/produk_yang_tersedia"
+        android:text="@string/kasir_yang_tersedia"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="@+id/imageView3"
         app:layout_constraintStart_toStartOf="@+id/imageView3"
         app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 
     <Button
-        android:id="@+id/button_add"
+        android:id="@+id/button_add_kasir"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/tambah_data"
@@ -38,9 +38,9 @@
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerview_tasks"
+        android:id="@+id/rv_kasir"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/button_add" />
+        app:layout_constraintTop_toBottomOf="@+id/button_add_kasir" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
